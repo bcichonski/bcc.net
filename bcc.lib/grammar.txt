@@ -1,0 +1,60 @@
+﻿smallc_program ::= type_specifier id '(' ')' compound_stmt
+
+Type_specifier ::= int | char
+
+#Param_decl_list  ::= parameter_decl (',' parameter_decl )*
+
+#Param_decl ::= type_specifier id
+
+Braced_stmt  ::= '{' Compound_stmt '}'
+
+Compound_stmt ::= var_decls stmts
+
+Var_decls ::= var_decl*;
+
+Stmts ::= stmt*;
+
+Var_decl ::= type_specifier var_decl_list ';'
+
+Var_decl_list ::=  variable_id ( ',' variable_id)*
+
+Variable_id  ::= id Variable_init?
+
+Variable_init ::= '=' expr
+
+Stmt ::= Braced_stmt | cond_stmt | while_stmt | return expr ';' | read '(' id ')' ';' | write '(' expr ')' ';' | expr ';'
+
+Cond_stmt ::=  if '('  expr ')' stmt (Else_stmt)?
+
+Else_stmt := else stmt;
+
+While_stmt ::= while '(' expr ')' stmt
+
+Expr ::= id '=' expr | Disjunction
+
+Disjunction ::=  conjunction | disjunction '||' conjunction
+
+Conjunction ::= comparison | conjunction '&&' comparison
+
+Comparison ::= relation | relation '==' relation
+
+Relation ::= sum | sum ('<' | '>') sum
+
+Sum ::= sum '+' term | sum '-' term | term
+
+Term ::= term '*' factor | term '/' factor | term '%' factor | factor
+
+Factor ::= '!' factor | '-' factor | primary
+
+Primary ::=  num | charconst | id | '(' expr ')'
+
+
+
+;if! else
+if:
+...
+goto skip
+else:
+
+
+skip:

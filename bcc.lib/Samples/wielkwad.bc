@@ -1,0 +1,30 @@
+﻿int main() {
+  //program wyznacza wartość wielomianu kwadratowego o współczynnikach całkowitych
+  //w zadanym całkowitym punkcie
+  //W(x) = ax^2+bx+c;
+
+  int a,b,c,x,wx;
+  char ca='a', cb='b', cc='c', cx='x', ceq='=', cW = 'W', cbr1='(', cbr2=')';
+
+  //pobieranie danych
+  write(ca);write(ceq);
+  read(a);
+
+  write(cb);write(ceq);
+  read(b);
+
+  write(cc);write(ceq);
+  read(c);
+
+  write(cx);write(ceq);
+  read(x);
+
+  //obliczenia
+  wx = (a*x+b)*x+c;
+
+  //wypisanie wyniku
+  write(cW);write(cbr1);write(x);write(cbr2);write(ceq);
+  write(wx);
+
+  return 0;
+}

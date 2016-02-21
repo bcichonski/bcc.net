@@ -1,0 +1,25 @@
+﻿int main() {
+  char H='H';
+  char e='e';
+  char l='l';
+  char o='o';
+  char spc=' ';
+  char W='W';
+  char r='r';
+  char d='d';
+  char ex='!';
+
+  write(H);
+  write(e);
+  write(l);
+  write(l);
+  write(o);
+  write(spc);
+  write(W);
+  write(o);
+  write(r);
+  write(l);
+  write(d);
+  write(ex);
+  return 0;
+}

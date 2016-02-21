@@ -1,0 +1,13 @@
+﻿int main() {
+  int i=0+1*(2-3);
+  char c='A';
+  if(i==0) {
+    i=1;
+  }
+  else
+  {
+   i=2;
+  }
+  write(c);
+  return 0;
+}

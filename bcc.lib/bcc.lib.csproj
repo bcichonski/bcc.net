@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DF3295F4-64FA-4A85-90CD-94656F655543}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>bcc.lib</RootNamespace>
+    <AssemblyName>bcc.lib</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AST\Node.cs" />
+    <Compile Include="AST\BlockStatement.cs" />
+    <Compile Include="AST\CompoundStatement.cs" />
+    <Compile Include="AST\Primary.cs" />
+    <Compile Include="AST\Factor.cs" />
+    <Compile Include="AST\Term.cs" />
+    <Compile Include="AST\Sum.cs" />
+    <Compile Include="AST\Relation.cs" />
+    <Compile Include="AST\Comparision.cs" />
+    <Compile Include="AST\Conjunction.cs" />
+    <Compile Include="AST\Disjunction.cs" />
+    <Compile Include="AST\WhileStmt.cs" />
+    <Compile Include="AST\CondStmt.cs" />
+    <Compile Include="AST\ElseStmtOpt.cs" />
+    <Compile Include="AST\Stmt.cs" />
+    <Compile Include="AST\VariableId.cs" />
+    <Compile Include="AST\VariableInitOpt.cs" />
+    <Compile Include="AST\VariableDeclList.cs" />
+    <Compile Include="AST\VariableDecl.cs" />
+    <Compile Include="AST\VariableDeclarations.cs" />
+    <Compile Include="AST\Statements.cs" />
+    <Compile Include="AST\Program.cs" />
+    <Compile Include="AST\Expression.cs" />
+    <Compile Include="AST\TypeSpecifier.cs" />
+    <Compile Include="BartqCGrammar.cs" />
+    <Compile Include="IContext.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VariableInfo.cs" />
+    <Compile Include="Variables.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\wielkwad.bc" />
+    <None Include="Samples\hello.bc" />
+    <None Include="Samples\simple.bc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="grammar.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Irony_2013_12_12\Irony\010.Irony.2012.csproj">
+      <Project>{d81f5c91-d7db-46e5-bc99-49488fb6814c}</Project>
+      <Name>010.Irony.2012</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
