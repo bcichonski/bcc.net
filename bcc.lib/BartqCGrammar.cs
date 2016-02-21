@@ -110,7 +110,8 @@ namespace bcc.lib
                 | Relation + "==" + Relation;
 
             Relation.Rule = Sum
-                | Sum + (ToTerm("<") | ">") + Sum;
+                | Sum + "<" + Sum
+                | Sum + ">" + Sum;
 
             Sum.Rule = (Sum + "+" + Term)
                 | (Sum + "-" + Term)

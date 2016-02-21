@@ -1,0 +1,53 @@
+﻿int main() {
+  //the program show how to sort 3 integers in bc language
+
+  int a,b,c;
+  char ca='a', cb='b', cc='c', cgt='<', ceq='=';
+
+  //data reading
+  write(ca);write(ceq);
+  read(a);
+
+  write(cb);write(ceq);
+  read(b);
+
+  write(cc);write(ceq);
+  read(c);
+
+  //comparisions
+  if(a<b) {
+    if(c<a) {
+	  write(c);write(cgt);write(ceq);
+	  write(a);write(cgt);write(ceq);
+	  write(b);
+	} else {
+	  if(b<c) {
+	    write(a);write(cgt);write(ceq);
+	    write(b);write(cgt);write(ceq);
+	    write(c);
+	  } else {
+	    write(a);write(cgt);write(ceq);
+	    write(c);write(cgt);write(ceq);
+	    write(b);
+	  }
+	}
+  } else {
+    if(c<b) {
+	  write(c);write(cgt);write(ceq);
+	  write(b);write(cgt);write(ceq);
+	  write(a);
+	} else {
+	  if(c<a) {
+	    write(b);write(cgt);write(ceq);
+	    write(c);write(cgt);write(ceq);
+	    write(a);
+	  } else {
+	    write(b);write(cgt);write(ceq);
+	    write(a);write(cgt);write(ceq);
+	    write(c);
+	  }
+	}
+  }
+
+  return 0;
+}
