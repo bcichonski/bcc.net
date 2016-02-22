@@ -1,5 +1,5 @@
 ﻿int main() {
-  //the program show how to sort 3 integers in bc language
+  //the program shows how to sort 3 integers in bc language
 
   int a,b,c;
   char ca='a', cb='b', cc='c', cgt='<', ceq='=';

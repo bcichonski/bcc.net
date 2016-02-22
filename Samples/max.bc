@@ -1,0 +1,25 @@
+int main() {
+  //the program shows how to calc max number from given sequence of non-negative integers
+  //type negative integer to end sequence
+
+  int v=0,i=0,max=-1;
+  char cv='v', ceq='=', cm='m', ca='a', cx='x';
+
+  while(v>-1) {
+    write(cv);
+	write(i);
+	write(ceq);
+	read(v);
+
+	if(max<v) max=v;
+	i=i+1;
+  }
+
+  write(cm);
+  write(ca);
+  write(cx);
+  write(ceq);
+  write(max);
+
+  return 0;
+}

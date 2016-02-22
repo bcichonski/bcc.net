@@ -1,4 +1,5 @@
 ﻿int main() {
+  //the program writes Hello to the world
   char H='H';
   char e='e';
   char l='l';
