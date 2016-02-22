@@ -16,7 +16,7 @@ namespace bcc.lib.AST
             var counter = (int)context.Cache["labels"];
             whileTestLabel = counter++;
             whileEndLabel = counter++;
-            context.Emit(label:$"Label{whileTestLabel}", opcode: "nop", comment: "while");
+            context.Emit(label:$"Label{whileTestLabel}:", opcode: "nop", comment: "while");
             context.Cache["labels"] = counter;
             base.StepIn(context);
         }
@@ -35,7 +35,7 @@ namespace bcc.lib.AST
         {
             base.StepOut(context);
             context.Emit(opcode: $"br Label{whileTestLabel}", comment: "while");
-            context.Emit(label: $"Label{whileEndLabel}", opcode: "nop", comment: "while");
+            context.Emit(label: $"Label{whileEndLabel}:", opcode: "nop", comment: "while");
         }
     }
 }

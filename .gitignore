@@ -13,3 +13,4 @@ Dasm/bin/
 Irony_2013_12_12/.hgignore
 Irony_2013_12_12/.hgtags
 Irony_2013_12_12/Libraries/
+*.il

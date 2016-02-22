@@ -23,13 +23,13 @@ namespace bcc.lib.AST
             else if (child.ParseNode.Term.Name == "ElseStmtOpt")
             {
                 
-                elsePresent = child.ParseNode.ChildNodes.Count > 0;
-                elseLabel = counter++;
+                elsePresent = child.ParseNode.ChildNodes.Count > 0;                
                 if (elsePresent)
                 {
+                    elseLabel = counter++;
                     context.Emit(opcode: $"br Label{elseLabel}");
-                }
-                context.Emit(label: $"Label{ifLabel}:", opcode: "nop", comment: "else");
+                    context.Emit(label: $"Label{ifLabel}:", opcode: "nop", comment: "else");
+                }               
             }
             context.Cache["labels"] = counter;
             base.BeforeVisitChild(context, child);

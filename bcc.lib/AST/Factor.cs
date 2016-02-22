@@ -20,7 +20,7 @@ namespace bcc.lib.AST
                     context.Emit(opcode: "ldc.i4.0");
                     context.Emit(opcode: "ceq");
                 }
-                this.NodeType = ((Node)child.AstNode).NodeType;
+                this.NodeType = ((Node)this.ParseNode.ChildNodes.Last().AstNode).NodeType;
             } else
             {
                 this.NodeType = ((Node)this.ParseNode.ChildNodes.First().AstNode).NodeType;
