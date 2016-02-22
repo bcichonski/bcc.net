@@ -8,30 +8,30 @@ namespace bcc.lib.AST
 {
     public class CondStmt : Node
     {
-        private int counter;
+        private int ifLabel;
+        private int elseLabel;
         private bool elsePresent;
+
         public override void BeforeVisitChild(IContext context, Node child)
         {
-            counter = (int)context.Cache["labels"];
+            var counter = (int)context.Cache["labels"];
             if (child.ParseNode.Term.Name == "Stmt")
             {
-                counter++;
-                context.Cache["labels"] = counter;
-                context.Emit(opcode: $"brfalse Label{counter}", comment: "if then");
+                ifLabel = counter++;               
+                context.Emit(opcode: $"brfalse Label{ifLabel}", comment: "if then");
             }
             else if (child.ParseNode.Term.Name == "ElseStmtOpt")
             {
                 
                 elsePresent = child.ParseNode.ChildNodes.Count > 0;
-                var currCounter = counter;
+                elseLabel = counter++;
                 if (elsePresent)
                 {
-                    context.Emit(opcode: $"br Label{++counter}");
+                    context.Emit(opcode: $"br Label{elseLabel}");
                 }
-                context.Emit(label: $"Label{currCounter}:", opcode: "nop", comment: "else");
-                counter++;
-                context.Cache["labels"] = counter;
+                context.Emit(label: $"Label{ifLabel}:", opcode: "nop", comment: "else");
             }
+            context.Cache["labels"] = counter;
             base.BeforeVisitChild(context, child);
         }
 
@@ -39,8 +39,10 @@ namespace bcc.lib.AST
         {
             if (elsePresent)
             {
-                counter = (int)context.Cache["labels"];
-                context.Emit(label: $"Label{counter - 1}:", opcode: "nop", comment: "end if");
+                context.Emit(label: $"Label{elseLabel}:", opcode: "nop", comment: "end if");
+            } else
+            {
+                context.Emit(label: $"Label{ifLabel}:", opcode: "nop", comment: "end if");
             }
             base.StepOut(context);
         }
