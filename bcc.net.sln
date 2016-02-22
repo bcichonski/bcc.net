@@ -11,6 +11,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "010.Irony.2012", "Irony_201
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dasm", "Dasm\Dasm.csproj", "{ABBD9563-705A-4907-859C-6CBE804D5935}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{00B1625D-8418-4A47-A99C-87B8306C5ECA}"
+	ProjectSection(SolutionItems) = preProject
+		Samples\hello.bc = Samples\hello.bc
+		Samples\simple.bc = Samples\simple.bc
+		Samples\sort3.bc = Samples\sort3.bc
+		Samples\wielkwad.bc = Samples\wielkwad.bc
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

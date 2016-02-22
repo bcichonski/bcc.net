@@ -71,12 +71,6 @@
     <Compile Include="Variables.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Samples\sort3.bc" />
-    <None Include="Samples\wielkwad.bc" />
-    <None Include="Samples\hello.bc" />
-    <None Include="Samples\simple.bc" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="grammar.txt" />
   </ItemGroup>
   <ItemGroup>
