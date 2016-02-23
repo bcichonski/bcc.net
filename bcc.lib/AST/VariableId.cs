@@ -27,11 +27,20 @@ namespace bcc.lib.AST
 
         public override void StepOut(IContext context)
         {
+            var arropt = this.ParseNode.ChildNodes.FirstOrDefault(c => c.Term.Name == "VariableArrayDeclOpt");
             var vars = (Variables)context.Cache["vars"];
-            var currType = (VariableType)context.Cache["currtype"];
+
+            if (arropt!= null)
+            {
+
+            }
+           
+            var typeSpec = this.ParseNode.ChildNodes.First(c => c.Term.Name == "TypeSpecifier");
+            var currType = ((Node)typeSpec.AstNode).NodeType;
             var currName = name;
             vars.Add(currName, currType);
-            var iltype = TypeSpecifier.IlType(currType);
+
+            var iltype = currType.IlType;
             context.Emit(opcode: $".locals init ({iltype})", comment: $"{currType} {currName}");
 
             var initopt = this.ParseNode.ChildNodes.FirstOrDefault(c => c.Term.Name == "VariableInitOpt");

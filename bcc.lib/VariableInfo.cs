@@ -23,6 +23,9 @@ namespace bcc.lib
         {
             this.PrimitiveType = tdesc.PrimitiveType;
         }
+        public TypeDescriptor(string type) : this(ToVarType(type))
+        {
+        }
 
         public static implicit operator TypeDescriptor(VariableType type)
         {
@@ -54,6 +57,32 @@ namespace bcc.lib
         {
             return this.PrimitiveType.GetHashCode();
         }
+
+        public virtual string IlType
+        {
+            get
+            {
+                return ToIlType(this.PrimitiveType);
+            }
+        }
+
+        protected static string ToIlType(VariableType type)
+        {
+            if (type == VariableType.Char)
+                return "char";
+            if (type == VariableType.Int32)
+                return "int32";
+            throw new ArgumentException("Unknown type " + type);
+        }
+
+        protected static VariableType ToVarType(string type)
+        {
+            if (type == "char")
+                return VariableType.Char;
+            if (type == "int")
+                return VariableType.Int32;
+            throw new ArgumentException("Unknown type " + type);
+        }
     }
 
     public class ArrayTypeDescriptor : TypeDescriptor
@@ -81,6 +110,19 @@ namespace bcc.lib
                 return this.PrimitiveType == v.PrimitiveType && this.Size == v.Size;
             }
             else return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode() + 13 * Size.GetHashCode();
+        }
+
+        public override string IlType
+        {
+            get
+            {
+                return base.IlType+"[]";
+            }
         }
     }
 
