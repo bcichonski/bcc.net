@@ -8,10 +8,5 @@ namespace bcc.lib.AST
 {
     public class VariableDecl : Node
     {
-        public override void StepOut(IContext context)
-        {
-            
-            base.StepOut(context);
-        }
     }
 }

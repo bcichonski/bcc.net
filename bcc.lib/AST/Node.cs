@@ -8,7 +8,7 @@ namespace bcc.lib.AST
     public class Node : IAstNodeInit
     {
         protected internal ParseTreeNode ParseNode { get; set; }
-        public VariableType? NodeType { get; set; } = null;
+        public TypeDescriptor NodeType { get; set; } = null;
 
         public virtual void Init(AstContext context, ParseTreeNode parseNode)
         {
