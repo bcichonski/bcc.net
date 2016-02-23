@@ -29,15 +29,16 @@ namespace bcc.lib.AST
         {
             var arropt = this.ParseNode.ChildNodes.FirstOrDefault(c => c.Term.Name == "VariableArrayDeclOpt");
             var vars = (Variables)context.Cache["vars"];
-
-            if (arropt!= null)
-            {
-
-            }
-           
             var typeSpec = this.ParseNode.ChildNodes.First(c => c.Term.Name == "TypeSpecifier");
             var currType = ((Node)typeSpec.AstNode).NodeType;
             var currName = name;
+
+            if (arropt != null)
+            {
+                currType = new ArrayTypeDescriptor(currType);
+            }
+           
+            
             vars.Add(currName, currType);
 
             var iltype = currType.IlType;

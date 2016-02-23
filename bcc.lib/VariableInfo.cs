@@ -87,16 +87,14 @@ namespace bcc.lib
 
     public class ArrayTypeDescriptor : TypeDescriptor
     {
-        public int Size { get; private set; }
-        public ArrayTypeDescriptor(VariableType type, int size) : base(type)
+
+        public ArrayTypeDescriptor(VariableType type) : base(type)
         {
-            this.Size = size;
         }
-        public ArrayTypeDescriptor(TypeDescriptor tdesc, int size) : base(tdesc)
+        public ArrayTypeDescriptor(TypeDescriptor tdesc) : base(tdesc)
         {
-            this.Size = size;
         }
-        public ArrayTypeDescriptor(ArrayTypeDescriptor arr) : this(arr.PrimitiveType, arr.Size)
+        public ArrayTypeDescriptor(ArrayTypeDescriptor arr) : this(arr.PrimitiveType)
         {
         }
 
@@ -107,14 +105,14 @@ namespace bcc.lib
             else if (obj is ArrayTypeDescriptor)
             {
                 var v = (ArrayTypeDescriptor)obj;
-                return this.PrimitiveType == v.PrimitiveType && this.Size == v.Size;
+                return this.PrimitiveType == v.PrimitiveType;
             }
             else return false;
         }
 
         public override int GetHashCode()
         {
-            return base.GetHashCode() + 13 * Size.GetHashCode();
+            return base.GetHashCode();
         }
 
         public override string IlType
