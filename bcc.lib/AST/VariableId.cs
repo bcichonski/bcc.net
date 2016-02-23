@@ -15,8 +15,9 @@ namespace bcc.lib.AST
             if (this.ParseNode.Token != null)
             {
                 name = this.ParseNode.Token.ValueString;
-                
-            } else
+
+            }
+            else
             {
                 name = this.ParseNode.ChildNodes.First(c => c.Term.Name == "identifier").Token.ValueString;
             }
@@ -29,27 +30,40 @@ namespace bcc.lib.AST
         {
             var arropt = this.ParseNode.ChildNodes.FirstOrDefault(c => c.Term.Name == "VariableArrayDeclOpt");
             var vars = (Variables)context.Cache["vars"];
-            var typeSpec = this.ParseNode.ChildNodes.First(c => c.Term.Name == "TypeSpecifier");
+            var typeSpec = this.ParentNode.ParentNode.ParseNode.ChildNodes.First(c => c.Term.Name == "TypeSpecifier");
             var currType = ((Node)typeSpec.AstNode).NodeType;
             var currName = name;
+            bool arroptpresent = false;
 
             if (arropt != null)
             {
-                currType = new ArrayTypeDescriptor(currType);
+                arroptpresent = ((VariableArrayDeclOpt)arropt.AstNode).Present;
+                if (arroptpresent)
+                    currType = new ArrayTypeDescriptor(currType);
             }
-           
-            
+
             vars.Add(currName, currType);
 
             var iltype = currType.IlType;
             context.Emit(opcode: $".locals init ({iltype})", comment: $"{currType} {currName}");
 
+            if (arroptpresent)
+            {
+                var newarrtype = ((ArrayTypeDescriptor)currType).NewArrType;
+                context.Emit(opcode: $"newarr {newarrtype}");
+                var v = vars[currName];
+                context.Emit(opcode: $"stloc {v.IlNo}", comment: $"{currName}=");
+            }
+
             var initopt = this.ParseNode.ChildNodes.FirstOrDefault(c => c.Term.Name == "VariableInitOpt");
             if (initopt != null)
             {
-                var val = ((VariableInitOpt)initopt.AstNode).Present;
-                if (val)
+                var initoptpres = ((VariableInitOpt)initopt.AstNode).Present;
+                if (initoptpres)
                 {
+                    if (currType is ArrayTypeDescriptor)
+                        throw new Exception("Currently initialization of array is not allowed");
+
                     if (vars.ContainsKey(currName))
                     {
                         var v = vars[currName];
@@ -57,7 +71,6 @@ namespace bcc.lib.AST
                     }
                     else throw new ArgumentOutOfRangeException($"Unknown variable '{currName}'");
                 }
-                context.Cache.Remove("variableInitOpt");
             }
         }
     }

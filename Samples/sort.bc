@@ -1,0 +1,20 @@
+int main() {
+  //the program shows how to sort given sequence of non-negative integers up to 1000 elements
+  //type negative integer to end sequence
+
+  int v=0,i=0;
+  char cv='v', ceq='=';
+  int table[1000];
+
+  while(v>-1) {
+    write(cv);
+	write(i);
+	write(ceq);
+	read(v);
+	//table[i]=v;
+
+	i=i+1;
+  }
+
+  return 0;
+}

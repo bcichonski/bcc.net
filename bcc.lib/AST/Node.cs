@@ -8,6 +8,7 @@ namespace bcc.lib.AST
     public class Node : IAstNodeInit
     {
         protected internal ParseTreeNode ParseNode { get; set; }
+        protected internal Node ParentNode { get; set; }
         public TypeDescriptor NodeType { get; set; } = null;
 
         public virtual void Init(AstContext context, ParseTreeNode parseNode)
@@ -23,6 +24,7 @@ namespace bcc.lib.AST
                 foreach(var childnode in ParseNode.ChildNodes)
                     if(childnode.AstNode != null)
                     {
+                        ((Node)childnode.AstNode).ParentNode = this;
                         Node astnode = (Node)childnode.AstNode;
                         BeforeVisitChild(context, astnode);
                         astnode.Visit(context);
@@ -44,6 +46,7 @@ namespace bcc.lib.AST
                 .Where(cn=>cn.AstNode != null)
                 .Select(cn => cn.AstNode)
                 .Cast<Node>()
+                .Where(n => NodeType != null)
                 .All(n => n.NodeType == this.NodeType))
             {
                 throw new Exception("Type mismatch");

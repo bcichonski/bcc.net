@@ -83,6 +83,21 @@ namespace bcc.lib
                 return VariableType.Int32;
             throw new ArgumentException("Unknown type " + type);
         }
+
+        public override string ToString()
+        {
+            return PrimitiveType.ToString();
+        }
+
+        public static bool operator ==(TypeDescriptor x, TypeDescriptor y)
+        {
+            return x?.Equals(y) ?? false;
+        }
+
+        public static bool operator !=(TypeDescriptor x, TypeDescriptor y)
+        {
+            return !x?.Equals(y) ?? false;
+        }
     }
 
     public class ArrayTypeDescriptor : TypeDescriptor
@@ -121,6 +136,23 @@ namespace bcc.lib
             {
                 return base.IlType+"[]";
             }
+        }
+
+        public string NewArrType
+        {
+            get
+            {
+                if (this.PrimitiveType == VariableType.Char)
+                    return "[mscorlib]System.Char";
+                if (this.PrimitiveType == VariableType.Int32)
+                    return "[mscorlib]System.Int32";
+                else throw new NotImplementedException();
+            }
+        }
+
+        public override string ToString()
+        {
+            return base.ToString()+"[]";
         }
     }
 

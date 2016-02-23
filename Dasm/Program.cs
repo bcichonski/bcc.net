@@ -10,8 +10,13 @@ namespace Dasm
     {
         static void Main(string[] args)
         {
-            char c;
-            c = Convert.ToChar(Console.ReadLine());
+            char[] c = new char[5];
+            int[] i = new int[3];
+            c[4] = 'a';
+            i[1] = 66;
+            char cc = c[4];
+            int q = i[1];
+            c = new char[6];
         }
     }
 }

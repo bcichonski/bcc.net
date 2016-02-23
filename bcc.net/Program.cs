@@ -47,6 +47,7 @@ namespace bcc.net
                     Console.Error.WriteLine("Error " + msg.ParserState + " at line " + msg.Location.Line + " column " + msg.Location.Column);
                     Console.Error.WriteLine(msg.Message);
                 }
+                Console.ReadKey();
             }
         }
     }
