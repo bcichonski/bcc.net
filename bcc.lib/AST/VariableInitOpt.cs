@@ -8,9 +8,10 @@ namespace bcc.lib.AST
 {
     public class VariableInitOpt : Node
     {
+        public bool Present { get; set; }
         public override void StepOut(IContext context)
         {
-            context.Cache["variableInitOpt"] = this.ParseNode.ChildNodes.Count>0;
+            this.Present = this.ParseNode.ChildNodes.Count>0;
             base.StepOut(context);
         }
     }

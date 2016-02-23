@@ -34,9 +34,10 @@ namespace bcc.lib.AST
             var iltype = TypeSpecifier.IlType(currType);
             context.Emit(opcode: $".locals init ({iltype})", comment: $"{currType} {currName}");
 
-            if (context.Cache.ContainsKey("variableInitOpt"))
+            var initopt = this.ParseNode.ChildNodes.FirstOrDefault(c => c.Term.Name == "VariableInitOpt");
+            if (initopt != null)
             {
-                var val = (bool)context.Cache["variableInitOpt"];
+                var val = ((VariableInitOpt)initopt.AstNode).Present;
                 if (val)
                 {
                     if (vars.ContainsKey(currName))
