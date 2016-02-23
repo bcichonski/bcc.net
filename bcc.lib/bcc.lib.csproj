@@ -52,6 +52,7 @@
     <Compile Include="AST\Comparision.cs" />
     <Compile Include="AST\Conjunction.cs" />
     <Compile Include="AST\Disjunction.cs" />
+    <Compile Include="AST\VariableArrayDeclOpt.cs" />
     <Compile Include="AST\WhileStmt.cs" />
     <Compile Include="AST\CondStmt.cs" />
     <Compile Include="AST\ElseStmtOpt.cs" />

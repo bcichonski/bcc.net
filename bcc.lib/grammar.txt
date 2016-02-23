@@ -18,7 +18,9 @@ Var_decl ::= type_specifier var_decl_list ';'
 
 Var_decl_list ::=  variable_id ( ',' variable_id)*
 
-Variable_id  ::= id Variable_init?
+Variable_id  ::= id Variable_array? Variable_init?
+
+Variable_array ::= '[' expr ']'
 
 Variable_init ::= '=' expr
 
@@ -47,14 +49,3 @@ Term ::= term '*' factor | term '/' factor | term '%' factor | factor
 Factor ::= '!' factor | '-' factor | primary
 
 Primary ::=  num | charconst | id | '(' expr ')'
-
-
-
-;if! else
-if:
-...
-goto skip
-else:
-
-
-skip:

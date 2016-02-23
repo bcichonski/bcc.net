@@ -39,6 +39,7 @@ namespace bcc.lib
             var VariableId = new NonTerminal("VariableId", typeof(VariableId));
 
             var VariableInitOpt = new NonTerminal("VariableInitOpt", typeof(VariableInitOpt));
+            var VariableArrayDeclOpt = new NonTerminal("VariableArrayDeclOpt", typeof(VariableArrayDeclOpt));
             var VariableDeclList = new NonTerminal("VariableDeclList", typeof(VariableDeclList));
             var VariableDecl = new NonTerminal("VariableDecl", typeof(VariableDecl));
             var VariableDeclarations = new NonTerminal("VariableDeclarations", typeof(VariableDeclarations));
@@ -75,9 +76,12 @@ namespace bcc.lib
 
             VariableDeclList.Rule = MakeStarRule(VariableDeclList, ToTerm(","), VariableId);
 
-            VariableId.Rule = identifier + VariableInitOpt;
+            VariableId.Rule = identifier + VariableArrayDeclOpt + VariableInitOpt;
 
             VariableInitOpt.Rule = "=" + Expr
+                | this.Empty;
+
+            VariableArrayDeclOpt.Rule = "[" + Expr + "]"
                 | this.Empty;
 
             Stmt.Rule = //(ToTerm("break") + ";")
