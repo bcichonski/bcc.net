@@ -2,19 +2,48 @@ int main() {
   //the program shows how to sort given sequence of non-negative integers up to 1000 elements
   //type negative integer to end sequence
 
-  int v=0,i=0;
-  char cv='v', ceq='=';
+  int v=0,i=0,j=0,m=0,len=0;
+  char cv='v', ceq='=', ccomma=',';
   int table[1000];
 
+  //reading sequence
   while(v>-1) {
     write(cv);
-	write(i);
+	write(len);
 	write(ceq);
 	read(v);
-	table[i]=v;
+	table[len]=v;
 
+	len=len+1;
+  }
+  
+  //actual sorting
+  //more sophisticated alg requires recursion
+  //or second array acting as the stack which is
+  //not the main goal here
+  i=0;
+  while(i<len) {
+    m=i;
+    j=i+1;
+	while(j<len) {
+	  if(table[j]<table[m])
+	    m=j;
+	  j=j+1;
+	}
+	v = table[m];
+	table[m] = table[i];
+	table[i] = v;
 	i=i+1;
   }
 
+  //writing output
+  j=0;
+  while(j<len) {
+    if(j>0)
+	  write(ccomma);  
+    write(table[j]);
+	j=j+1;
+  }
+  
   return 0;
 }

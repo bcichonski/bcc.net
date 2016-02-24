@@ -8,6 +8,31 @@ namespace bcc.lib.AST
 {
     public class Primary : Node
     {
+        private bool arroptpresent;
+        string varid;
+        VariableInfo arrayVar;
+
+        public override void StepIn(IContext context)
+        {
+            var child = this.ParseNode.ChildNodes.First();
+            if (child.Term.Name == "identifier")
+            {
+                var arropt = this.ParseNode.ChildNodes.First(c => c.Term.Name == "VariableArrayDeclOpt");
+                varid = this.ParseNode.ChildNodes.First().Token.ValueString;
+                arroptpresent = arropt.ChildNodes.Count > 0;
+                if (arroptpresent)
+                {
+                    var vars = (Variables)context.Cache["vars"];
+                    if (vars.TryGetValue(varid, out arrayVar))
+                    {
+                        context.Emit(opcode: $"ldloc {arrayVar.IlNo}", comment: $"variable array {arrayVar.Name}");
+                    }
+                    else throw new Exception($"Array {varid} missing it's declaration.");
+                }
+            }
+            base.StepIn(context);
+        }
+
         public override void StepOut(IContext context)
         {
             var child = this.ParseNode.ChildNodes.First();
@@ -25,14 +50,21 @@ namespace bcc.lib.AST
                 this.NodeType = VariableType.Char;
             }
             else if (child.Term.Name == "identifier")
-            {
-                var varid = this.ParseNode.ChildNodes.First().Token.ValueString;
+            {              
                 var vars = (Variables)context.Cache["vars"];
                 VariableInfo vi;
                 if (vars.TryGetValue(varid, out vi))
                 {
-                    context.Emit(opcode: $"ldloc {vi.IlNo}", comment: $"variable value {vi.Name}");
-                    this.NodeType = vi.Type;
+                    if (arroptpresent)
+                    {
+                        string ldelem = ((ArrayTypeDescriptor)arrayVar.Type).ArrayElemSuffix;
+                        context.Emit(opcode: $"ldelem.{ldelem}", comment: $"load elem of {arrayVar.Name}");
+                        this.NodeType = vi.Type.PrimitiveType;
+                    }
+                    else {
+                        context.Emit(opcode: $"ldloc {vi.IlNo}", comment: $"variable value {vi.Name}");
+                        this.NodeType = vi.Type;
+                    }
                 }
                 else
                     throw new ArgumentOutOfRangeException("Undeclared variable " + varid);

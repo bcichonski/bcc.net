@@ -48,4 +48,4 @@ Term ::= term '*' factor | term '/' factor | term '%' factor | factor
 
 Factor ::= '!' factor | '-' factor | primary
 
-Primary ::=  num | charconst | id | '(' expr ')'
+Primary ::=  num | charconst | id Variable_array? | '(' expr ')'

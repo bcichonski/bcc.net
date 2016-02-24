@@ -132,7 +132,7 @@ namespace bcc.lib
 
             Primary.Rule = number
                 | charConst
-                | identifier
+                | (identifier + VariableArrayDeclOpt)
                 | ("(" + Expr + ")");
 
             //Reserved words
