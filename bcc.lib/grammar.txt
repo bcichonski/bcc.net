@@ -32,7 +32,7 @@ Else_stmt := else stmt;
 
 While_stmt ::= while '(' expr ')' stmt
 
-Expr ::= id '=' expr | Disjunction
+Expr ::= id Variable_array? '=' expr | Disjunction
 
 Disjunction ::=  conjunction | disjunction '||' conjunction
 

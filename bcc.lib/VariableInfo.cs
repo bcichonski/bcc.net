@@ -134,7 +134,7 @@ namespace bcc.lib
         {
             get
             {
-                return base.IlType+"[]";
+                return base.IlType + "[]";
             }
         }
 
@@ -150,9 +150,21 @@ namespace bcc.lib
             }
         }
 
+        public string ArrayElemSuffix
+        {
+            get
+            {
+                if (this.PrimitiveType == VariableType.Int32)
+                    return "i4";
+                else if (this.PrimitiveType == VariableType.Char)
+                    return "i2";
+                throw new NotImplementedException();
+            }
+        }
+
         public override string ToString()
         {
-            return base.ToString()+"[]";
+            return base.ToString() + "[]";
         }
     }
 
@@ -160,6 +172,6 @@ namespace bcc.lib
     {
         public string Name { get; set; }
         public int IlNo { get; set; }
-        public VariableType Type { get; set; }
+        public TypeDescriptor Type { get; set; }
     }
 }

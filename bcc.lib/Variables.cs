@@ -10,7 +10,7 @@ namespace bcc.lib
     {
         public int Counter { get; set; } = 0;
 
-        public void Add(string name, VariableType type)
+        public void Add(string name, TypeDescriptor type)
         {
             var vi = new VariableInfo() { IlNo = Counter++, Name = name, Type = type };
             this.Add(name, vi);

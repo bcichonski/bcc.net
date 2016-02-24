@@ -101,7 +101,7 @@ namespace bcc.lib
 
             WhileStmt.Rule = ToTerm("while") + "(" + Expr + ")" + Stmt;
 
-            Expr.Rule = (identifier + "=" + Expr)
+            Expr.Rule = (identifier + VariableArrayDeclOpt + "=" + Expr)
                 | Disjunction;
 
             Disjunction.Rule = Conjunction

@@ -11,7 +11,7 @@ int main() {
 	write(i);
 	write(ceq);
 	read(v);
-	//table[i]=v;
+	table[i]=v;
 
 	i=i+1;
   }
