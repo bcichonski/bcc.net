@@ -14,11 +14,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{00B1625D-8418-4A47-A99C-87B8306C5ECA}"
 	ProjectSection(SolutionItems) = preProject
 		Samples\hello.bc = Samples\hello.bc
+		Samples\linear.bc = Samples\linear.bc
 		Samples\max.bc = Samples\max.bc
 		Samples\simple.bc = Samples\simple.bc
 		Samples\sort.bc = Samples\sort.bc
 		Samples\sort3.bc = Samples\sort3.bc
-		Samples\wielkwad.bc = Samples\wielkwad.bc
 	EndProjectSection
 EndProject
 Global
