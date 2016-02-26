@@ -11,5 +11,6 @@ namespace bcc.lib
         void Emit(string label = "", string opcode = "", string comment = "");
 
         Dictionary<string,object> Cache { get; }
+        bool IgnoreEmit { get; set; }
     }
 }

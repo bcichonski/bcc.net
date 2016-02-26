@@ -12,9 +12,12 @@ namespace bcc.net
             = new Dictionary<string, object>();
 
         public StringBuilder Code { get; private set; } = new StringBuilder();
+        public bool IgnoreEmit { get; set; } = false;
 
         public void Emit(string label = "", string opcode = "", string comment = "")
         {
+            if (IgnoreEmit)
+                return;
             if (string.IsNullOrWhiteSpace(label))
                 label = TAB;
             if (!string.IsNullOrWhiteSpace(comment))
