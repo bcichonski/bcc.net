@@ -49,6 +49,14 @@ namespace bcc.lib.AST
                 context.Emit(opcode: $"ldc.i4.s {intval}", comment: $"constant '{val}'");
                 this.NodeType = VariableType.Char;
             }
+            else if (child.Term.Name == "StringConstant")
+            {
+                var val = this.ParseNode.ChildNodes.First().Token.Value;
+                context.Emit(opcode: $"ldstr \"{val}\"", comment: $"constant string");
+                context.Emit(opcode: $"callvirt instance char[][mscorlib] System.String::ToCharArray()", comment: $"string to char array");
+
+                this.NodeType = new ArrayTypeDescriptor(VariableType.Char);
+            }
             else if (child.Term.Name == "identifier")
             {              
                 var vars = (Variables)context.Cache["vars"];

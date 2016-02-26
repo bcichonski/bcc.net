@@ -1,0 +1,8 @@
+﻿int main() {
+  //the program writes Hello to the world with string literals and char arrays
+  char world[10] = "world!";
+  write("Hello ");
+  write(world);
+
+  return 0;
+}

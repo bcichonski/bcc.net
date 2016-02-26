@@ -67,7 +67,21 @@ namespace bcc.lib.AST
                 else
                     if (type == VariableType.Int32)
                     context.Emit(opcode: "call void [mscorlib]System.Console::Write(int32)");
-                else throw new ArgumentException("Internal error: untyped expression");
+                else
+                    if (type is ArrayTypeDescriptor)
+                {
+                    var arrtype = (ArrayTypeDescriptor)type;
+                    if (arrtype.PrimitiveType == VariableType.Char)
+                    {
+                        context.Emit(opcode: "call void [mscorlib]System.Console::Write(char[])");
+                    }
+                    else
+                    {
+                        throw new ArgumentException("Internal error: only array of char can be written.");
+                    }
+                }
+                else
+                    throw new ArgumentException("Internal error: untyped expression");
             }
             else throw new ArgumentException("Expression to write not found");
         }

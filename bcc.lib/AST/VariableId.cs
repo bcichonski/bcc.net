@@ -46,8 +46,12 @@ namespace bcc.lib.AST
 
             var iltype = currType.IlType;
             context.Emit(opcode: $".locals init ({iltype})", comment: $"{currType} {currName}");
+            var initopt = this.ParseNode.ChildNodes.FirstOrDefault(c => c.Term.Name == "VariableInitOpt");
+            var initoptpres = false;
+            if (initopt != null)
+                initoptpres = ((VariableInitOpt)initopt.AstNode).Present;
 
-            if (arroptpresent)
+            if (arroptpresent && !initoptpres)
             {
                 var newarrtype = ((ArrayTypeDescriptor)currType).NewArrType;
                 context.Emit(opcode: $"newarr {newarrtype}");
@@ -55,23 +59,19 @@ namespace bcc.lib.AST
                 context.Emit(opcode: $"stloc {v.IlNo}", comment: $"{currName}=");
             }
 
-            var initopt = this.ParseNode.ChildNodes.FirstOrDefault(c => c.Term.Name == "VariableInitOpt");
-            if (initopt != null)
+            if (initoptpres)
             {
-                var initoptpres = ((VariableInitOpt)initopt.AstNode).Present;
-                if (initoptpres)
-                {
-                    if (currType is ArrayTypeDescriptor)
-                        throw new Exception("Currently initialization of array is not allowed");
+                if (currType is ArrayTypeDescriptor && currType.PrimitiveType != VariableType.Char)
+                    throw new Exception("Currently initialization of array other than char is not allowed");
 
-                    if (vars.ContainsKey(currName))
-                    {
-                        var v = vars[currName];
-                        context.Emit(opcode: $"stloc {v.IlNo}", comment: $"{currName}=");
-                    }
-                    else throw new ArgumentOutOfRangeException($"Unknown variable '{currName}'");
+                if (vars.ContainsKey(currName))
+                {
+                    var v = vars[currName];
+                    context.Emit(opcode: $"stloc {v.IlNo}", comment: $"{currName}=");
                 }
+                else throw new ArgumentOutOfRangeException($"Unknown variable '{currName}'");
             }
+
         }
     }
 }

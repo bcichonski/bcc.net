@@ -20,6 +20,7 @@ namespace bcc.lib
             var comment = new CommentTerminal("comment", "//", "\n", "\r");
             comment.AstConfig.NodeType = typeof(Node);
             var charConst = new StringLiteral("CharConstant", "'", StringOptions.IsChar, typeof(Node));
+            var stringConst = new StringLiteral("StringConstant", "\"", StringOptions.AllowsDoubledQuote | StringOptions.AllowsAllEscapes, typeof(Node));
             base.NonGrammarTerminals.Add(comment);
 
             // 2. Non-terminals
@@ -131,6 +132,7 @@ namespace bcc.lib
                 | Primary;
 
             Primary.Rule = number
+                | stringConst
                 | charConst
                 | (identifier + VariableArrayDeclOpt)
                 | ("(" + Expr + ")");
