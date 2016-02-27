@@ -25,9 +25,9 @@ namespace bcc.lib.AST
                     var vars = (Variables)context.Cache["vars"];
                     if (vars.TryGetValue(varid, out arrayVar))
                     {
-                        context.Emit(opcode: $"ldloc {arrayVar.IlNo}", comment: $"variable array {arrayVar.Name}");
+                        context.Emit(opcode: "ldloc "+ arrayVar.IlNo, comment: "variable array "+ arrayVar.Name);
                     }
-                    else throw new Exception($"Array {varid} missing it's declaration.");
+                    else throw new Exception(string.Format("Array {0} missing it's declaration.", varid));
                 }
             }
             base.StepIn(context);
@@ -39,21 +39,21 @@ namespace bcc.lib.AST
             if (child.Term.Name == "number")
             {
                 var val = Convert.ToInt32(this.ParseNode.ChildNodes.First().Token.Value);
-                context.Emit(opcode: $"ldc.i4 {val}", comment: $"constant {val}");
+                context.Emit(opcode: "ldc.i4 "+val, comment: "constant " + val);
                 this.NodeType = VariableType.Int32;
             }
             else if (child.Term.Name == "CharConstant")
             {
                 var val = Convert.ToChar(this.ParseNode.ChildNodes.First().Token.Value);
                 var intval = Convert.ToByte(val);
-                context.Emit(opcode: $"ldc.i4.s {intval}", comment: $"constant '{val}'");
+                context.Emit(opcode: "ldc.i4.s "+ intval, comment: "constant '"+ val + "'");
                 this.NodeType = VariableType.Char;
             }
             else if (child.Term.Name == "StringConstant")
             {
                 var val = this.ParseNode.ChildNodes.First().Token.Value;
-                context.Emit(opcode: $"ldstr \"{val}\"", comment: $"constant string");
-                context.Emit(opcode: $"callvirt instance char[][mscorlib] System.String::ToCharArray()", comment: $"string to char array");
+                context.Emit(opcode: "ldstr \""+ val + "\"", comment: "constant string");
+                context.Emit(opcode: "callvirt instance char[][mscorlib] System.String::ToCharArray()", comment: "string to char array");
 
                 this.NodeType = new ArrayTypeDescriptor(VariableType.Char);
             }
@@ -66,11 +66,11 @@ namespace bcc.lib.AST
                     if (arroptpresent)
                     {
                         string ldelem = ((ArrayTypeDescriptor)arrayVar.Type).ArrayElemSuffix;
-                        context.Emit(opcode: $"ldelem.{ldelem}", comment: $"load elem of {arrayVar.Name}");
+                        context.Emit(opcode: "ldelem."+ldelem, comment: "load elem of "+ arrayVar.Name);
                         this.NodeType = vi.Type.PrimitiveType;
                     }
                     else {
-                        context.Emit(opcode: $"ldloc {vi.IlNo}", comment: $"variable value {vi.Name}");
+                        context.Emit(opcode: "ldloc "+ vi.IlNo, comment: "variable value "+ vi.Name);
                         this.NodeType = vi.Type;
                     }
                 }

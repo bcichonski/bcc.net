@@ -24,9 +24,9 @@ namespace bcc.lib.AST
                     var vars = (Variables)context.Cache["vars"];
                     if (vars.TryGetValue(currName, out arrayVar))
                     {
-                        context.Emit(opcode: $"ldloc {arrayVar.IlNo}", comment: $"variable array {arrayVar.Name}");
+                        context.Emit(opcode: "ldloc "+ arrayVar.IlNo, comment: "variable array "+ arrayVar.Name);
                     }
-                    else throw new Exception($"Array {currName} missing it's declaration.");
+                    else throw new Exception(string.Format("Array {0} missing it's declaration.", currName));
                 }
             }
             base.StepIn(context);
@@ -39,7 +39,7 @@ namespace bcc.lib.AST
                 if (arroptpresent)
                 {
                     string stelem = ((ArrayTypeDescriptor)arrayVar.Type).ArrayElemSuffix;
-                    context.Emit(opcode: $"stelem.{stelem}", comment: $"store elem of {arrayVar.Name}");
+                    context.Emit(opcode: "stelem."+stelem, comment: "store elem of "+stelem);
                 }
                 else
                     StoreVariableValue(context, currName);

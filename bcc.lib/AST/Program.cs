@@ -16,9 +16,9 @@ namespace bcc.lib.AST
             var mainMethodName = id.Token.ValueString;
 
             context.Emit(label: ".assembly extern mscorlib {}");
-            context.Emit(label: $".assembly {programName} {{ }}");
-            context.Emit(label: $".module {programName}.exe");
-            context.Emit(label: $".method static int32 {mainMethodName}() cil managed");
+            context.Emit(label: ".assembly "+ programName + " { }");
+            context.Emit(label: ".module "+ programName + ".exe");
+            context.Emit(label: ".method static int32 "+ mainMethodName + " () cil managed");
             context.Emit(label: "{");
             context.Emit(opcode: ".entrypoint");
             base.StepIn(context);

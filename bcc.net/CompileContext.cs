@@ -22,7 +22,7 @@ namespace bcc.net
                 label = TAB;
             if (!string.IsNullOrWhiteSpace(comment))
                 comment = "//" + comment;
-            Code.AppendLine($"{label,-8}{opcode,-32}{comment}");
+            Code.AppendFormat("{0,-8}{1,-32}{2}\n",label,opcode,comment);
         }
     }
 }

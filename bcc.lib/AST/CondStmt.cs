@@ -18,7 +18,7 @@ namespace bcc.lib.AST
             if (child.ParseNode.Term.Name == "Stmt")
             {
                 ifLabel = counter++;               
-                context.Emit(opcode: $"brfalse Label{ifLabel}", comment: "if then");
+                context.Emit(opcode: "brfalse Label"+ ifLabel, comment: "if then");
             }
             else if (child.ParseNode.Term.Name == "ElseStmtOpt")
             {
@@ -27,8 +27,8 @@ namespace bcc.lib.AST
                 if (elsePresent)
                 {
                     elseLabel = counter++;
-                    context.Emit(opcode: $"br Label{elseLabel}");
-                    context.Emit(label: $"Label{ifLabel}:", opcode: "nop", comment: "else");
+                    context.Emit(opcode: "br Label"+elseLabel);
+                    context.Emit(label: "Label"+ifLabel+":", opcode: "nop", comment: "else");
                 }               
             }
             context.Cache["labels"] = counter;
@@ -39,10 +39,10 @@ namespace bcc.lib.AST
         {
             if (elsePresent)
             {
-                context.Emit(label: $"Label{elseLabel}:", opcode: "nop", comment: "end if");
+                context.Emit(label: "Label"+ elseLabel+":", opcode: "nop", comment: "end if");
             } else
             {
-                context.Emit(label: $"Label{ifLabel}:", opcode: "nop", comment: "end if");
+                context.Emit(label: "Label"+ ifLabel+":", opcode: "nop", comment: "end if");
             }
             base.StepOut(context);
         }

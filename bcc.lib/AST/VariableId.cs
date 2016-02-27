@@ -64,14 +64,14 @@ namespace bcc.lib.AST
             vars.Add(currName, currType);
 
             var iltype = currType.IlType;
-            context.Emit(opcode: $".locals init ({iltype})", comment: $"{currType} {currName}");
+            context.Emit(opcode: ".locals init ("+ iltype + ")", comment: ""+currType+" "+currName);
 
             if (arroptpresent && !initoptpres)
             {
                 var newarrtype = ((ArrayTypeDescriptor)currType).NewArrType;
-                context.Emit(opcode: $"newarr {newarrtype}");
+                context.Emit(opcode: "newarr "+ newarrtype);
                 var v = vars[currName];
-                context.Emit(opcode: $"stloc {v.IlNo}", comment: $"{currName}=");
+                context.Emit(opcode: "stloc "+ v.IlNo, comment: ""+currName+"=");
             }
 
             if (initoptpres)
@@ -82,9 +82,9 @@ namespace bcc.lib.AST
                 if (vars.ContainsKey(currName))
                 {
                     var v = vars[currName];
-                    context.Emit(opcode: $"stloc {v.IlNo}", comment: $"{currName}=");
+                    context.Emit(opcode: "stloc "+ v.IlNo, comment: "" + currName + "=");
                 }
-                else throw new ArgumentOutOfRangeException($"Unknown variable '{currName}'");
+                else throw new ArgumentOutOfRangeException("Unknown variable '"+ currName + "'");
             }
 
         }

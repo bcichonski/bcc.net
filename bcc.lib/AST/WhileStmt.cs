@@ -16,7 +16,7 @@ namespace bcc.lib.AST
             var counter = (int)context.Cache["labels"];
             whileTestLabel = counter++;
             whileEndLabel = counter++;
-            context.Emit(label:$"Label{whileTestLabel}:", opcode: "nop", comment: "while");
+            context.Emit(label:"Label"+ whileTestLabel + ":", opcode: "nop", comment: "while");
             context.Cache["labels"] = counter;
             base.StepIn(context);
         }
@@ -25,7 +25,7 @@ namespace bcc.lib.AST
         {
             if (child.ParseNode.Term.Name == "Expr")
             {
-                context.Emit(opcode: $"brfalse Label{whileEndLabel}", comment: "while");
+                context.Emit(opcode: "brfalse Label"+ whileEndLabel, comment: "while");
             }
             base.BeforeVisitChild(context, child);
         }
@@ -34,8 +34,8 @@ namespace bcc.lib.AST
         public override void StepOut(IContext context)
         {
             base.StepOut(context);
-            context.Emit(opcode: $"br Label{whileTestLabel}", comment: "while");
-            context.Emit(label: $"Label{whileEndLabel}:", opcode: "nop", comment: "while");
+            context.Emit(opcode: "br Label"+ whileTestLabel, comment: "while");
+            context.Emit(label: "Label"+ whileEndLabel+":", opcode: "nop", comment: "while");
         }
     }
 }

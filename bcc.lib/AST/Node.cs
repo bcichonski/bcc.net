@@ -59,10 +59,10 @@ namespace bcc.lib.AST
             if (vars.ContainsKey(currName))
             {
                 var v = vars[currName];
-                context.Emit(opcode: $"stloc {v.IlNo}", comment: $"{currName}=");
+                context.Emit(opcode: "stloc "+ v.IlNo, comment: ""+ currName+"=");
                 NodeType = v.Type;
             }
-            else throw new ArgumentOutOfRangeException($"Unknown variable '{currName}'");
+            else throw new ArgumentOutOfRangeException("Unknown variable '"+ currName + "'");
         }
     }
 }
