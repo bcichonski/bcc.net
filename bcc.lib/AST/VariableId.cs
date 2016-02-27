@@ -38,7 +38,7 @@ namespace bcc.lib.AST
         public override void BeforeVisitChild(IContext context, Node child)
         {
             base.BeforeVisitChild(context, child);
-            if (child.ParseNode.Term.Name == "VariableArrayDeclOpt")
+            if (child.ParseNode.Term.Name == "VariableArrayDeclOpt" && arroptpresent && initoptpres)
             {
                 context.IgnoreEmit = true;
             }
