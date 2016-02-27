@@ -26,13 +26,28 @@ namespace bcc.lib.AST
             var arropt = this.ParseNode.ChildNodes.FirstOrDefault(c => c.Term.Name == "VariableArrayDeclOpt");
             if (arropt != null)
             {
-                arroptpresent = ((VariableArrayDeclOpt)arropt.AstNode).Present;
+                arroptpresent = arropt.ChildNodes.Count>0;
             }
             var initopt = this.ParseNode.ChildNodes.FirstOrDefault(c => c.Term.Name == "VariableInitOpt");
             if (initopt != null)
-                initoptpres = ((VariableInitOpt)initopt.AstNode).Present;
+                initoptpres = initopt.ChildNodes.Count > 0;
 
             base.StepIn(context);
+        }
+
+        public override void BeforeVisitChild(IContext context, Node child)
+        {
+            base.BeforeVisitChild(context, child);
+            if (child.ParseNode.Term.Name == "VariableArrayDeclOpt")
+            {
+                context.IgnoreEmit = true;
+            }
+        }
+
+        public override void AfterVisitChild(IContext context, Node child)
+        {
+            base.AfterVisitChild(context, child);
+            context.IgnoreEmit = false;
         }
 
         public override void StepOut(IContext context)
