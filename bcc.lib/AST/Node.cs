@@ -9,7 +9,7 @@ namespace bcc.lib.AST
     {
         protected internal ParseTreeNode ParseNode { get; set; }
         protected internal Node ParentNode { get; set; }
-        public TypeDescriptor NodeType { get; set; } = null;
+        public TypeDescriptor NodeType { get; set; }
 
         public virtual void Init(AstContext context, ParseTreeNode parseNode)
         {
@@ -19,7 +19,7 @@ namespace bcc.lib.AST
         public void Visit(IContext context)
         {
             StepIn(context);
-            if(ParseNode.ChildNodes?.Count > 0)
+            if(ParseNode.ChildNodes!=null && ParseNode.ChildNodes.Count > 0)
             {
                 foreach(var childnode in ParseNode.ChildNodes)
                     if(childnode.AstNode != null)

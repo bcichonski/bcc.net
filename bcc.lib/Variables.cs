@@ -8,7 +8,7 @@ namespace bcc.lib
 {
     public class Variables : Dictionary<string, VariableInfo>
     {
-        public int Counter { get; set; } = 0;
+        public int Counter { get; set; }
 
         public void Add(string name, TypeDescriptor type)
         {

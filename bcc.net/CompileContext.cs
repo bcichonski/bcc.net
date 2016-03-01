@@ -8,11 +8,15 @@ namespace bcc.net
     internal class CompileContext : IContext
     {
         const string TAB = "    ";
-        public Dictionary<string, object> Cache { get; private set; } 
-            = new Dictionary<string, object>();
+        public Dictionary<string, object> Cache { get; private set; }            
 
-        public StringBuilder Code { get; private set; } = new StringBuilder();
-        public bool IgnoreEmit { get; set; } = false;
+        public StringBuilder Code { get; private set; }
+        public bool IgnoreEmit { get; set; }
+
+        public CompileContext() {
+          Code = new StringBuilder();
+          Cache = new Dictionary<string, object>();
+        }
 
         public void Emit(string label = "", string opcode = "", string comment = "")
         {

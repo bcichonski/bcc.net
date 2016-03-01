@@ -31,7 +31,9 @@ namespace bcc.net
 
         public static void Compile(ParseTree ast, string filename, string full)
         {
-            Node root = (Node)ast?.Root?.AstNode;
+            Node root = null;
+            if (ast!=null && ast.Root!=null)
+              root = (Node)ast.Root.AstNode;
             if (root != null)
             {
                 var context = new CompileContext();

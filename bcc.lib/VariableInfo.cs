@@ -91,12 +91,12 @@ namespace bcc.lib
 
         public static bool operator ==(TypeDescriptor x, TypeDescriptor y)
         {
-            return x?.Equals(y) ?? false;
+            return x != null && x.Equals(y);
         }
 
         public static bool operator !=(TypeDescriptor x, TypeDescriptor y)
         {
-            return !x?.Equals(y) ?? false;
+            return x != null && x.Equals(y);
         }
     }
 
