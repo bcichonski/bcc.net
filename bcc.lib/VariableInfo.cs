@@ -100,6 +100,25 @@ namespace bcc.lib
         }
     }
 
+    public class PointerTypeDescriptor : TypeDescriptor
+    {
+        public PointerTypeDescriptor(string typename) : base(typename) { }
+        public PointerTypeDescriptor(VariableType type) : base(type) { }
+        public PointerTypeDescriptor(TypeDescriptor type) : base(type) { }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is PointerTypeDescriptor)
+                return ((PointerTypeDescriptor)obj).PrimitiveType == this.PrimitiveType;
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return 380380477 * PrimitiveType.GetHashCode();
+        }
+    }
+
     public class ArrayTypeDescriptor : TypeDescriptor
     {
 
@@ -127,7 +146,7 @@ namespace bcc.lib
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return 60090847 * PrimitiveType.GetHashCode();
         }
 
         public override string IlType

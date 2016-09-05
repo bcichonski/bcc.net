@@ -54,8 +54,8 @@ namespace bcc.lib.AST
         {
 
             var vars = (Variables)context.Cache["vars"];
-            var typeSpec = this.ParentNode.ParentNode.ParseNode.ChildNodes.First(c => c.Term.Name == "TypeSpecifier");
-            var currType = ((Node)typeSpec.AstNode).NodeType;
+            var typeSpec = this.ParentNode.ParentNode.ParseNode.ChildNodes.First(c => c.Term.Name.EndsWith("TypeSpecifier"));
+            var currType = ((Node)typeSpec.ChildNodes.First().AstNode).NodeType;
             var currName = name;
 
             if (arroptpresent)

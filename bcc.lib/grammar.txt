@@ -1,6 +1,10 @@
 ﻿smallc_program ::= type_specifier id '(' ')' compound_stmt
 
-Type_specifier ::= int | char
+Type_specifier ::= Pointer_type_specifier | Simple_type_specifier
+
+Pointer_type_specifier ::= simple_type_specifier '*'
+
+Simple_type_specifier ::= int | char
 
 #Param_decl_list  ::= parameter_decl (',' parameter_decl )*
 

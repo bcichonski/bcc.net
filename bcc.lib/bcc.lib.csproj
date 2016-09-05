@@ -46,12 +46,14 @@
     <Compile Include="AST\CompoundStatement.cs" />
     <Compile Include="AST\Primary.cs" />
     <Compile Include="AST\Factor.cs" />
+    <Compile Include="AST\PointerTypeSpecifier.cs" />
     <Compile Include="AST\Term.cs" />
     <Compile Include="AST\Sum.cs" />
     <Compile Include="AST\Relation.cs" />
     <Compile Include="AST\Comparision.cs" />
     <Compile Include="AST\Conjunction.cs" />
     <Compile Include="AST\Disjunction.cs" />
+    <Compile Include="AST\SimpleTypeSpecifier.cs" />
     <Compile Include="AST\VariableArrayDeclOpt.cs" />
     <Compile Include="AST\WhileStmt.cs" />
     <Compile Include="AST\CondStmt.cs" />
