@@ -50,6 +50,8 @@ namespace bcc.lib
             //var ParamDecl = new NonTerminal("ParamDecl");
             //var ParamDeclList = new NonTerminal("ParamDeclList");
             var TypeSpecifier = new NonTerminal("TypeSpecifier", typeof(TypeSpecifier));
+            var SimpleTypeSpecifier = new NonTerminal("SimpleTypeSpecifier", typeof(SimpleTypeSpecifier));
+            var PointerTypeSpecifier = new NonTerminal("PointerTypeSpecifier", typeof(PointerTypeSpecifier));
             var SmallCProgram = new NonTerminal("SmallCProgram", typeof(Program));
 
             //Rules
@@ -59,7 +61,11 @@ namespace bcc.lib
                 //+ ParamDeclList 
                 + ")" + BlockStatement;
 
-            TypeSpecifier.Rule = ToTerm("char") | "int";
+            SimpleTypeSpecifier.Rule = ToTerm("char") | "int";
+
+            PointerTypeSpecifier.Rule = SimpleTypeSpecifier + "*";
+
+            TypeSpecifier.Rule = PointerTypeSpecifier | SimpleTypeSpecifier;
 
             //ParamDeclList.Rule = MakeStarRule(ParamDeclList, ToTerm(","), ParamDecl);
 
